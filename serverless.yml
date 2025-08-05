@@ -1,0 +1,53 @@
+# Serverless Framework configuration for Lambda deployment
+service: company-management-api
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ap-south-1  # Same as your S3 bucket region
+  stage: ${opt:stage, 'dev'}
+  timeout: 30
+  memorySize: 512
+  
+  # Environment variables from your .env file
+  environment:
+    MONGODB_URI: ${env:MONGODB_URI}
+    JWT_SECRET: ${env:JWT_SECRET}
+    JWT_EXPIRES_IN: ${env:JWT_EXPIRES_IN}
+    AWS_ACCESS_KEY_ID: ${env:AWS_ACCESS_KEY_ID}
+    AWS_SECRET_ACCESS_KEY: ${env:AWS_SECRET_ACCESS_KEY}
+    AWS_REGION: ${env:AWS_REGION}
+    AWS_S3_BUCKET_NAME: ${env:AWS_S3_BUCKET_NAME}
+    NODE_ENV: production
+
+functions:
+  api:
+    handler: lambda.handler
+    events:
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+      - http:
+          path: /
+          method: ANY
+          cors:
+            origin: '*'
+
+plugins:
+  - serverless-offline  # For local testing
+
+# Optional: Custom domain configuration
+# custom:
+#   customDomain:
+#     domainName: api.yourdomain.com
+#     stage: ${self:provider.stage}
+#     createRoute53Record: true

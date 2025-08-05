@@ -1,0 +1,99 @@
+const mongoose = require('mongoose');
+
+const documentSchema = mongoose.Schema({
+  type: String,
+  number: String,
+  expiryDate: Date
+});
+
+const vehicleSchema = mongoose.Schema({
+  type: String,
+  licenseNumber: {
+    type: String,
+    required: true
+  },
+  licenseExpiry: Date,
+  insuranceExpiry: Date,
+  make: String,
+  model: String,
+  year: Number,
+  color: String,
+  status: {
+    type: String,
+    enum: ['active', 'maintenance', 'retired'],
+    default: 'active'
+  },
+  licenseDocument: {
+    type: {
+      url: String,
+      fileName: String,
+      uploadedAt: Date
+    },
+    default: null
+  },
+  insuranceDocument: {
+    type: {
+      url: String,
+      fileName: String,
+      uploadedAt: Date
+    },
+    default: null
+  }
+});
+
+const branchSchema = mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  location: {
+    type: String,
+    required: true
+  },
+  address: String,
+  manager: String,
+  contactNumber: String,
+  email: String,
+  // Company CR
+  crNumber: String,
+  crExpiry: Date,
+  // Ruksa
+  ruksaNumber: String,
+  ruksaExpiry: Date,
+  // Computer Card
+  computerCardNumber: String,
+  computerCardExpiry: Date,
+  // Certification
+  certificationNumber: String,
+  certificationExpiry: Date,
+  // Document files
+  branchDocuments: {
+    crDocument: {
+      url: String,
+      fileName: String,
+      uploadedAt: Date
+    },
+    ruksaDocument: {
+      url: String,
+      fileName: String,
+      uploadedAt: Date
+    },
+    computerCardDocument: {
+      url: String,
+      fileName: String,
+      uploadedAt: Date
+    },
+    certificationDocument: {
+      url: String,
+      fileName: String,
+      uploadedAt: Date
+    }
+  },
+  documents: [documentSchema],
+  vehicles: [vehicleSchema],
+  assignedUsers: [String]
+}, {
+  timestamps: true
+});
+
+module.exports = mongoose.model('Branch', branchSchema);
