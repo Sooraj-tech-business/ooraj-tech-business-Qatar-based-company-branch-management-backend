@@ -11,34 +11,8 @@ const getEmployees = asyncHandler(async (req, res) => {
   console.log('Getting all employees');
   
   try {
-    // If no employees exist yet, return users as employees
     const employees = await Employee.find({});
     console.log(`Found ${employees.length} employees`);
-    
-    if (employees.length === 0) {
-      console.log('No employees found, returning users as employees');
-      const users = await User.find({});
-      
-      // Convert users to employee format
-      const userEmployees = users.map(user => ({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        branch: user.branch,
-        designation: user.role,
-        status: user.status || 'Working',
-        workLocation: 'Main Office',
-        qid: 'QID' + Math.floor(100000 + Math.random() * 900000),
-        passportNumber: 'P' + Math.floor(100000 + Math.random() * 900000),
-        doj: new Date(),
-        createdAt: user.createdAt,
-        updatedAt: user.updatedAt
-      }));
-      
-      console.log(`Returning ${userEmployees.length} users as employees`);
-      return res.json(userEmployees);
-    }
     
     res.json(employees);
   } catch (error) {
@@ -129,23 +103,6 @@ const addEmployee = asyncHandler(async (req, res) => {
       employee: updatedEmployee
     });
   }
-
-  // Create a user account for login if password is provided
-  if (password) {
-    try {
-      await User.create({
-        name,
-        email,
-        password,
-        role: 'User', // Always use 'User' role for the User document
-        branch
-      });
-    } catch (error) {
-      console.log('Error creating user account:', error.message);
-      // Continue even if user creation fails
-    }
-  }
-
   try {
     const employee = await Employee.create({
       name,
