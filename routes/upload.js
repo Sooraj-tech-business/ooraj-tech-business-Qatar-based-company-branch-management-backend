@@ -184,7 +184,10 @@ router.post('/branch/:documentType', async (req, res) => {
 
 // Direct S3 upload without employee requirement
 router.post('/direct/:documentType', async (req, res) => {
-  const memoryUpload = multer({ storage: multer.memoryStorage() });
+const memoryUpload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 10 * 1024 * 1024 }, // 10 MB
+});
   
   memoryUpload.single('document')(req, res, async (err) => {
     if (err) {
