@@ -27,7 +27,7 @@ const employeeSchema = mongoose.Schema({
   },
   workLocation: {
     type: String,
-    required: true
+    required: false
   },
   status: {
     type: String,

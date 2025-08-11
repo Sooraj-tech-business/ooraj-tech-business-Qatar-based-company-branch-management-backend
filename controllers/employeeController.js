@@ -53,9 +53,9 @@ const addEmployee = asyncHandler(async (req, res) => {
     documents, qidExpiry, passportExpiry, doe, phone, nationality, salary, visaAddedBranch
   } = req.body;
 
-  if (!name || !email || !role || !branch || !workLocation) {
+  if (!name || !email || !role || !branch) {
     res.status(400);
-    throw new Error('Please provide all required fields (name, email, role, branch, workLocation)');
+    throw new Error('Please provide all required fields (name, email, role, branch)');
   }
 
   // Check if employee already exists
