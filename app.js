@@ -43,6 +43,7 @@ app.use('/api/branches', require('./routes/branchRoutes'));
 app.use('/api/vehicles', require('./routes/vehicleRoutes'));
 app.use('/api/activities', require('./routes/activityRoutes'));
 app.use('/api/documents', require('./routes/documentRoutes'));
+app.use('/api/vacations', require('./routes/vacationRoutes'));
 app.use('/api/upload', require('./routes/upload'));
 
 // Error handling middleware (should come after routes)
