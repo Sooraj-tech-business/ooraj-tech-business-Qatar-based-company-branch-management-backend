@@ -112,6 +112,11 @@ const branchSchema = mongoose.Schema({
       url: String,
       fileName: String,
       uploadedAt: Date
+    },
+    baladiyaDocument: {
+      url: String,
+      fileName: String,
+      uploadedAt: Date
     }
   },
   documents: [documentSchema],
