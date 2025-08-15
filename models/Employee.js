@@ -114,6 +114,11 @@ const employeeSchema = mongoose.Schema({
       uploadedAt: Date,
       fileName: String
     },
+    workAgreement: {
+      url: String,
+      uploadedAt: Date,
+      fileName: String
+    },
     profilePicture: {
       url: String,
       uploadedAt: Date,

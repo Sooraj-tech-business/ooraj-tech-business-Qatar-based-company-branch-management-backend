@@ -66,6 +66,16 @@ const branchSchema = mongoose.Schema({
   // Certification
   certificationNumber: String,
   certificationExpiry: Date,
+  // Tax Card
+  taxCardNumber: String,
+  taxCardExpiry: Date,
+  // Baladiya
+  baladiyaNumber: String,
+  baladiyaExpiry: Date,
+  // Bank Details
+  bankName: String,
+  bankAccountNumber: String,
+  ibanNumber: String,
   // Document files
   branchDocuments: {
     crDocument: {
@@ -84,6 +94,21 @@ const branchSchema = mongoose.Schema({
       uploadedAt: Date
     },
     certificationDocument: {
+      url: String,
+      fileName: String,
+      uploadedAt: Date
+    },
+    taxCardDocument: {
+      url: String,
+      fileName: String,
+      uploadedAt: Date
+    },
+    logoDocument: {
+      url: String,
+      fileName: String,
+      uploadedAt: Date
+    },
+    letterheadDocument: {
       url: String,
       fileName: String,
       uploadedAt: Date
