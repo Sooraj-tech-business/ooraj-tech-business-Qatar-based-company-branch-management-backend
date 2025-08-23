@@ -53,7 +53,7 @@ const addEmployee = asyncHandler(async (req, res) => {
     documents, qidExpiry, passportExpiry, doe, phone, nationality, salary, visaAddedBranch
   } = req.body;
 
-  if (!name || !email || !role || !branch) {
+  if (!name || !email || !role) {
     res.status(400);
     throw new Error('Please provide all required fields (name, email, role, branch)');
   }

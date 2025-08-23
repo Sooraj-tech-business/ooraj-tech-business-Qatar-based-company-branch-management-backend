@@ -65,7 +65,7 @@ const employeeSchema = mongoose.Schema({
   },
   branch: {
     type: String,
-    required: true
+    required: false
   },
   role: {
     type: String,
