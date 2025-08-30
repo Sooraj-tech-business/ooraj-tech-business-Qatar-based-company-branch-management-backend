@@ -12,6 +12,21 @@ const expenditureItemSchema = mongoose.Schema({
   description: String
 });
 
+const onlineDeliverySchema = mongoose.Schema({
+  platform: {
+    type: String,
+    required: true,
+    enum: ['Talabat', 'Keeta', 'Snoonu', 'ATM']
+  },
+  amount: {
+    type: Number,
+    required: true
+  },
+  description: String
+});
+
+
+
 const dailyExpenditureSchema = mongoose.Schema({
   branchId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -29,6 +44,15 @@ const dailyExpenditureSchema = mongoose.Schema({
   income: {
     type: Number,
     required: true,
+    default: 0
+  },
+  onlineDeliveries: [onlineDeliverySchema],
+  totalOnlineDelivery: {
+    type: Number,
+    default: 0
+  },
+  deliveryMoney: {
+    type: Number,
     default: 0
   },
   expenses: [expenditureItemSchema],
@@ -54,6 +78,7 @@ const dailyExpenditureSchema = mongoose.Schema({
 // Calculate totals before saving
 dailyExpenditureSchema.pre('save', function(next) {
   this.totalExpenses = this.expenses.reduce((total, expense) => total + expense.amount, 0);
+  this.totalOnlineDelivery = this.onlineDeliveries.reduce((total, delivery) => total + delivery.amount, 0);
   this.earnings = this.income - this.totalExpenses;
   next();
 });

@@ -87,10 +87,14 @@ const getExpenditureAnalytics = asyncHandler(async (req, res) => {
       $group: {
         _id: branchId ? '$branchId' : '$branchName',
         totalIncome: { $sum: '$income' },
+        totalOnlineDelivery: { $sum: '$totalOnlineDelivery' },
+        totalDeliveryMoney: { $sum: '$deliveryMoney' },
         totalExpenses: { $sum: '$totalExpenses' },
         totalEarnings: { $sum: '$earnings' },
         recordCount: { $sum: 1 },
         avgDailyIncome: { $avg: '$income' },
+        avgDailyOnlineDelivery: { $avg: '$totalOnlineDelivery' },
+        avgDailyDeliveryMoney: { $avg: '$deliveryMoney' },
         avgDailyExpenses: { $avg: '$totalExpenses' },
         branchName: { $first: '$branchName' }
       }
