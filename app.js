@@ -18,7 +18,7 @@ app.use(cors({
   origin: true, // Allow all origins for Lambda
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'X-User-Role']
 }));
 
 // Handle preflight OPTIONS requests for all routes
@@ -26,6 +26,10 @@ app.options('*', cors());
 
 // Body parser middleware to handle JSON payloads
 app.use(express.json());
+
+// Guest permissions middleware
+const checkGuestPermissions = require('./middleware/guestMiddleware');
+app.use('/api', checkGuestPermissions);
 
 // Basic route to test API
 app.get('/', (req, res) => {
