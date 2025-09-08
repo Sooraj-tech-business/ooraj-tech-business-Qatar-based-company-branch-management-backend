@@ -28,7 +28,14 @@ const getExpenditures = asyncHandler(async (req, res) => {
 // @route   POST /api/expenditures
 // @access  Private
 const createExpenditure = asyncHandler(async (req, res) => {
+  console.log('Received expenses:', req.body.expenses);
+  req.body.expenses.forEach((exp, index) => {
+    console.log(`Expense ${index}:`, exp);
+    console.log(`Type field:`, exp.type);
+  });
+  
   const expenditure = await DailyExpenditure.create(req.body);
+  console.log('Saved expenses:', expenditure.expenses);
   res.status(201).json(expenditure);
 });
 
@@ -39,8 +46,15 @@ const updateExpenditure = asyncHandler(async (req, res) => {
   const expenditure = await DailyExpenditure.findById(req.params.id);
 
   if (expenditure) {
+    console.log('Update - Received expenses:', req.body.expenses);
+    req.body.expenses?.forEach((exp, index) => {
+      console.log(`Update Expense ${index}:`, exp);
+      console.log(`Update Type field:`, exp.type);
+    });
+    
     Object.assign(expenditure, req.body);
     const updatedExpenditure = await expenditure.save();
+    console.log('Update - Saved expenses:', updatedExpenditure.expenses);
     res.json(updatedExpenditure);
   } else {
     res.status(404);

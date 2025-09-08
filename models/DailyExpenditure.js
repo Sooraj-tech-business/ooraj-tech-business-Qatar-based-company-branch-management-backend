@@ -9,6 +9,12 @@ const expenditureItemSchema = mongoose.Schema({
     type: Number,
     required: true
   },
+  type: {
+    type: String,
+    required: true,
+    enum: ['NORMAL EXPENSE', 'GENERAL EXPENSE'],
+    default: 'NORMAL EXPENSE'
+  },
   description: String
 });
 

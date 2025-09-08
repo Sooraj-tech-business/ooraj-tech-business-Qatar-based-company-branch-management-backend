@@ -102,7 +102,8 @@ const addBranch = asyncHandler(async (req, res) => {
     },
     documents: documents || [],
     vehicles: processedVehicles,
-    assignedUsers: assignedUsers || []
+    assignedUsers: assignedUsers || [],
+    shareholders: req.body.shareholders || []
   });
 
   if (branch) {
@@ -175,7 +176,8 @@ const updateBranch = asyncHandler(async (req, res) => {
       },
       documents: req.body.documents || branch.documents,
       vehicles: processedVehicles,
-      assignedUsers: req.body.assignedUsers || branch.assignedUsers
+      assignedUsers: req.body.assignedUsers || branch.assignedUsers,
+      shareholders: req.body.shareholders || branch.shareholders
     };
 
     const updatedBranch = await Branch.findByIdAndUpdate(

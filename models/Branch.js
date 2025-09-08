@@ -121,7 +121,23 @@ const branchSchema = mongoose.Schema({
   },
   documents: [documentSchema],
   vehicles: [vehicleSchema],
-  assignedUsers: [String]
+  assignedUsers: [String],
+  shareholders: [{
+    name: {
+      type: String,
+      required: true
+    },
+    quid: {
+      type: String,
+      required: true
+    },
+    sharePercentage: {
+      type: Number,
+      required: true,
+      min: 0,
+      max: 100
+    }
+  }]
 }, {
   timestamps: true
 });
