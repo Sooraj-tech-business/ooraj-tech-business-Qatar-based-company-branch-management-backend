@@ -177,7 +177,8 @@ const updateBranch = asyncHandler(async (req, res) => {
       documents: req.body.documents || branch.documents,
       vehicles: processedVehicles,
       assignedUsers: req.body.assignedUsers || branch.assignedUsers,
-      shareholders: req.body.shareholders || branch.shareholders
+      shareholders: req.body.shareholders || branch.shareholders,
+      zakathPercentage: req.body.hasOwnProperty('zakathPercentage') ? req.body.zakathPercentage : branch.zakathPercentage
     };
 
     const updatedBranch = await Branch.findByIdAndUpdate(

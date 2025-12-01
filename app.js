@@ -51,6 +51,7 @@ app.use('/api/vacations', require('./routes/vacationRoutes'));
 app.use('/api/upload', require('./routes/upload'));
 app.use('/api/temp-employees', require('./routes/tempEmployeeRoutes'));
 app.use('/api/expenditures', require('./routes/expenditureRoutes'));
+app.use('/api/monthly-savings', require('./routes/monthlySavingsRoutes'));
 
 // Error handling middleware (should come after routes)
 app.use(errorHandler);

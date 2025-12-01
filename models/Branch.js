@@ -122,6 +122,12 @@ const branchSchema = mongoose.Schema({
   documents: [documentSchema],
   vehicles: [vehicleSchema],
   assignedUsers: [String],
+  zakathPercentage: {
+    type: Number,
+    default: 0,
+    min: 0,
+    max: 100
+  },
   shareholders: [{
     name: {
       type: String,
